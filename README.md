@@ -9,3 +9,4 @@ Networking and multiplayer experience from the minds of Carl Christensen and Phi
 Produced by Dvir Bar.
 
 ~How the code works will come later~
+Please don't edit other people's code unless authorized.
