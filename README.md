@@ -11,6 +11,6 @@ The clients will send information back to the server(the player's decision in th
 Java
 
 ## Authors:
-Blackjack brought to you by Jordan Hernandez and Roulette by William Reiner.
+Blackjack brought to you by Jordan Hernandez and Roulette by William Reimer.
 Networking and multiplayer experience from the minds of Carl Christensen and Phillip.
 Produced by Dvir Bar.
