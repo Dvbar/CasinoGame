@@ -1,5 +1,6 @@
 # CasinoSim3000
-## Massively Multiplayer Casino Game:  ### The Best Blackjack and Roulette Multiplayer Experience.
+## Massively Multiplayer Casino Game:  
+### The Best Blackjack and Roulette Multiplayer Experience.
 
 ## Description:
 In this Casino simulator we will generate a "board" of some game, for instance blackjack.
