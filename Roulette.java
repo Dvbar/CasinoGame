@@ -9,8 +9,6 @@ public class Roulette {
     static JMenuBar grayMenu = new JMenuBar();
     static JLabel title = new JLabel("Roulette");
 
-    static JButton submitBet = new JButton("Bet");
-
     //Input the name and starting amount of the player
     static JLabel name = new JLabel("Name:");
     static JTextField inputName = new JTextField();
@@ -18,6 +16,8 @@ public class Roulette {
     static JTextField inputStartingAmount = new JTextField();
     static JButton submitNameAndMoney = new JButton("Submit");
 
+    /* Information used for betting */
+    static JButton submitBet = new JButton("Bet");
     //Used for drop down menus
     //One main type of bet, one for subtypes
     static String[] betPossibilities = new String[] {"1-18", "19-36", "1st Twelve", "2nd Twelve", "3rd Twelve", "Basket", "Color", "Column", "Corner", "Even/Odd", "Single", "Six Line", "Split", "Street"};
@@ -41,7 +41,26 @@ public class Roulette {
     final static JComboBox<String> splitSubComboBox = new JComboBox<String>(splitSubBets);
     final static JComboBox<String> streetSubComboBox = new JComboBox<String>(streetSubBets);
 
+    static Random generator = new Random();
+
+    private static int spin() {
+        return generator.nextInt(37);
+    }
+
+    private static void payout() {
+    }
+
     public static void main(String[] args) {
+        frame.setSize(800,600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        grayMenu.setOpaque(true);
+        grayMenu.setBackground(new Color(211,211,211));
+        grayMenu.setPreferredSize(new Dimension(800,20));
+
+        name.setBounds(50,450,30,25);
+        inputName.setBounds(100,450,100,25);
+        startingAmount.setBounds(50,415,30,25);
+        inputStartingAmount.setBounds(100,415,100,25);
     }
 }
-
