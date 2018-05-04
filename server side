@@ -1,0 +1,108 @@
+//Networking on the server
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.security.PublicKey;
+import java.util.Arrays;
+
+public class Server {
+	//Port server is running on.
+	private static int port;
+	//Socket server is running on.
+	private static ServerSocket serverSocket;
+	static File keysFile = new File("conf/keys.key");
+	//Number of accounts registered with server.
+	static int numberOfUsers;
+	//Maximum possible connections to server.
+	static int maxConnections;
+  //Number of users connected to the server at any given time.
+  static int onlineNumber = 0;
+	//Creates 2D matrix logins.
+	//The model is logins[x][y] with x representing index in array and y being either 0, 1, or 2.
+	//0 is for username, 1 is for password, and 2 is for socket number.
+	static String[][] logins;
+  static PublicKey[] publicKeys;
+	static boolean[] isOnline;
+  //Array of ObjectOutputStreams for all clients.
+	static ObjectOutputStream[] outputStream;
+	//Array of booleans for a user is online.
+
+	public static void main(String[] args) {
+
+		System.out.println("Starting PIM Server");
+    //Read configuration settings.
+		readConfig();
+		//Initializes "logins" matrix and "outputStream" array.
+		logins = new String[maxConnections][3];
+		outputStream = new ObjectOutputStream[maxConnections];
+        isOnline = new boolean[maxConnections];
+		publicKeys = new PublicKey[maxConnections];
+        //Sets all indexes in "isOnline" array to false.
+        for(int i = 0; i < maxConnections; i++)
+            isOnline[i] = false;
+
+		try {
+			serverSocket = new ServerSocket(port);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		readKeys();
+		readAccounts();
+
+		System.out.println("Server started successfully");
+
+		newConnections();
+	}
+
+	private static void readConfig() {
+		String input;
+
+		System.out.println("Reading configuration file...");
+
+		try {
+			FileReader fr = new FileReader("conf/config.txt");
+			BufferedReader br = new BufferedReader(fr);
+			//Skips over first line of file, which is the title.
+			br.readLine();
+			//Reads the max number of connections.
+			input = br.readLine().substring(23);
+			if (input.charAt(0) == ' ')
+				maxConnections = Integer.parseInt(input.substring(1));
+			else
+				maxConnections = Integer.parseInt(input);
+			//Reads the port number.
+			input = br.readLine().substring(12);
+			if (input.charAt(0) == ' ')
+				port = Integer.parseInt(input.substring(1));
+			else
+				port = Integer.parseInt(input);
+
+			br.close();
+
+			System.out.println("Configuration file read successfully.");
+		} catch (FileNotFoundException e) {
+		    //If file is not found, create new file with default settings, Port 1234 and maxConnections=100.
+			System.out.println("No Configurations file found, creating a new file with default configuration.");
+
+			try {
+				configFile.createNewFile();
+				FileWriter fw = new FileWriter("conf/config.conf");
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write("SERVER CONFIGURATION\r\n");
+				bw.write("Max Client Connections: 100\r\n");
+				bw.write("Port Number: 1234\r\n");
+				bw.close();
+
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+			maxConnections = 100;
+			port = 1234;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
