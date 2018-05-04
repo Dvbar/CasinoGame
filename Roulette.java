@@ -26,13 +26,22 @@ public class Roulette {
     static String[] columnSubBets = new String[] {"Top", "Middle", "Bottom"};
     static String[] cornerSubBets = new String[] {"{1,2,4,5}", "{2,3,5,6}", "{4,5,7,8}", "{5,6,8,9}", "{7,8,10,11}", "{8,9,11,12}", "{10,11,13,14}", "{11,12,14,15}", "{13,14,16,17}", "{14,15,17,18}", "{16,17,19,20}", "{17,18,20,21}", "{19,20,22,23}", "{20,21,23,24}", "{22,23,25,26}", "{23,24,26,27}", "{25,26,28,29}", "{26,27,29,30}", "{28,29,31,32}", "{29,30,32,33}", "{31,32,34,35}", "{32,33,35,36}"};
     static String[] evenOddSubBets = new String[] {"Even", "Odd"};
-    static String[] singleSubBets = new String[] {};
-    static String[] sixLineSubBets = new String[] {};
+    static String[] singleSubBets = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36"};
+    static String[] sixLineSubBets = new String[] {"{1,2,3,4,5,6}", "{4,5,6,7,8,9}", "{7,8,9,10,11,12}", "{10,11,12,13,14,15}", "{16,17,18,19,20,21}", "{19,20,21,22,23,24}", "{22,23,24,25,26,27}", "{25,26,27,28,29,30}", "{28,29,30,31,32,33}", "{31,32,33,34,35,36}"};
     static String[] splitSubBets = new String[] {"{1,2}", "{1,4}", "{2,3}", "{2,5}", "{3,6}", "{4,5}", "{4,7}", "{5,6}", "{5,8}", "{6,9}", "{7,8}", "{7,10}", "{8,9}", "{8,11}", "{9,12}", "{10,11}", "{10,13}", "{11,12}", "{11,14}", "{12,15}", "{13,14}", "{13,16}", "{14,15}", "{14,17}", "{15,18}", "{16,17}", "{16,19}", "{17,18}", "{17,20}", "{18,21}", "{19,20}", "{19,22}", "{20,21}", "{20,23}", "{21,24}", "{22,23}", "{22,25}", "{23,24}", "{23,26}", "{24,27}", "{25,26}", "{25,28}", "{26,27}", "{26,29}", "{27,30}", "{28,29}", "{28,31}", "{29,30}", "{29,32}", "{30,33}", "{31,32}", "{31,34}", "{32,33}", "{32,35}", "{33,36}", "{34,35}", "{35,36}"};
-    static String[] streetSubBets = new String[] {};
+    static String[] streetSubBets = new String[] {"{1,2,3}", "{4,5,6}", "{7,8,9}", "{10,11,12}", "{13,14,15}", "{16,17,18}", "{19,20,21}", "{22,23,24}", "{25,26,27}", "{28,29,30}", "{31,32,33}", "{34,35,36}"};
     final static JComboBox<String> betComboBox = new JComboBox<String>(betPossibilities);
-    final static JComboBox<String> evenOddSubComboBox = new JComboBox<String>();
+    final static JComboBox<String> basketSubComboBox = new JComboBox<String>(basketSubBets);
+    final static JComboBox<String> colorSubComboBox = new JComboBox<String>(colorSubBets);
+    final static JComboBox<String> columnSubComboBox = new JComboBox<String>(columnSubBets);
+    final static JComboBox<String> cornerSubComboBox = new JComboBox<String>(cornerSubBets);
+    final static JComboBox<String> evenOddSubComboBox = new JComboBox<String>(evenOddSubBets);
+    final static JComboBox<String> singleSubComboBox = new JComboBox<String>(singleSubBets);
+    final static JComboBox<String> sixLineSubComboBox = new JComboBox<String>(sixLineSubBets);
+    final static JComboBox<String> splitSubComboBox = new JComboBox<String>(splitSubBets);
+    final static JComboBox<String> streetSubComboBox = new JComboBox<String>(streetSubBets);
 
     public static void main(String[] args) {
     }
 }
+
