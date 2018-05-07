@@ -25,7 +25,7 @@ import javax.swing.*;
 	}
 }
 */
-
+//remember to write imports
 package ??
 import java fx.scene.Parent;
 //
@@ -36,7 +36,7 @@ import java fx.scene.Parent;
 //
 
 public class Card extends Parent {
-
+//qualitites of a card
 	enum Suit {
 		SPADES, DIAMONDS, CLUBS, HEARTS
 	};
@@ -44,7 +44,52 @@ public class Card extends Parent {
 		TWO = 1, THREE = 3, FOUR = 4, FIVE = 5, SIX = 6, SEVEN = 7, EIGHT = 8, NINE = 9, TEN = 10, JACK = 10, QUEEN = 10, KING = 10, ACE = 11;
 		final int value;
 		private Rank (int value) {
-			this.value - value;
+			this.value = value;
 		}
 	};
+
+	public final Suit suit;
+	public final Rank rank;
+	public final int value;
+
+//initializing card
+	public Card(Suit suit, Rank rank) {
+		this.suit = suit;
+		this.rank = rank;
+		this.value = rank.value;
+
+//display all this??
+//
+//rectangle
+//
+//text
+//
+	};
+};
+
+public class Deck {
+	private Card[] cards = new Card[52];
+
+	public Deck() {
+		refill();
+	}
+
+	public final void refill() {
+		int i = 0;
+		for (Suit suit : Suit.values()) {
+			cards[i++] = new(suit, rank);
+		}
+	}
+
+	public Card drawCard() {
+
+	};
+
+
+
+
+
+
+
+
 
