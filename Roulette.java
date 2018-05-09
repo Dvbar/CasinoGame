@@ -21,6 +21,8 @@ public class Roulette {
 
     /* Information used for betting */
     static int bet = 0;
+    static JLabel betLabel = new JLabel("Bet");
+    static JTextField inputBet = new JTextField();
     static JButton submitBet = new JButton("Bet");
     static JButton finishBet = new JButton("Done");
     //Used for drop down menus
@@ -47,22 +49,33 @@ public class Roulette {
     final static JComboBox<String> streetSubComboBox = new JComboBox<String>(streetSubBets);
     final static JComboBox<String> blankSubComboBox = new JComboBox<String>();
 
+    static JComboBox<String> tempSubComboBox = new JComboBox<String>();
+    static boolean replaced = false; //Checks to see if we have updated the SubComboBoxes before
+
     public static void update(String mainBet) {
-        betting.remove(blankSubComboBox);
-        if (mainBet == "Basket")        betting.add(basketSubComboBox);
-        else if (mainBet == "Color")    betting.add(colorSubComboBox);
-        else if (mainBet == "Column")   betting.add(columnSubComboBox);
-        else if (mainBet == "Corner")   betting.add(cornerSubComboBox);
-        else if (mainBet == "Even/Odd") betting.add(evenOddSubComboBox);
-        else if (mainBet == "Single")   betting.add(singleSubComboBox);
-        else if (mainBet == "Six Line") betting.add(sixLineSubComboBox);
-        else if (mainBet == "Split")    betting.add(splitSubComboBox);
-        else if (mainBet == "Street")   betting.add(streetSubComboBox);
-        else                            betting.add(blankSubComboBox);
+        if (!replaced) {
+            betting.remove(blankSubComboBox);
+            replaced = true;
+        }
+        else betting.remove(tempSubComboBox);
+
+        if (mainBet == "Basket")        tempSubComboBox = basketSubComboBox;
+        else if (mainBet == "Color")    tempSubComboBox = colorSubComboBox;
+        else if (mainBet == "Column")   tempSubComboBox = columnSubComboBox;
+        else if (mainBet == "Corner")   tempSubComboBox = cornerSubComboBox;
+        else if (mainBet == "Even/Odd") tempSubComboBox = evenOddSubComboBox;
+        else if (mainBet == "Single")   tempSubComboBox = singleSubComboBox;
+        else if (mainBet == "Six Line") tempSubComboBox = sixLineSubComboBox;
+        else if (mainBet == "Split")    tempSubComboBox = splitSubComboBox;
+        else if (mainBet == "Street")   tempSubComboBox = streetSubComboBox;
+        else                            tempSubComboBox = blankSubComboBox;
+        betting.add(tempSubComboBox);
     }
 
     //A vector that will hold every submitted bet
     static Vector<Integer> vecBets = new Vector<Integer>();
+    static Vector<String> vecBetTypes = new Vector<String>();
+    static Vector<String> vecSubBetTypes = new Vector<String>();
 
     static Random generator = new Random();
 
