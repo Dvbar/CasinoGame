@@ -1,42 +1,13 @@
-import javax.swing.*;
-/*public class gui_ttt {
-	public static void main(String[]args) {
-		JFrame f = new JFrame();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JMenuBar MenuBar = new JMenuBar();
-		MenuBar.setOpaque(true);
-		MenuBar.setBackground(new Color(154, 165, 127));
-		MenuBar.setPreferedSize(new Dimension(200, 20));
-
-		JLabel Label = new JLabel();
-		Label.setOpaque(true);
-		Label.setBackground(new Color(248, 213, 131));
-		Label.setPreferredSize(new Dimension(200, 180));
-
-		frame.setJMenuBar(MenuBar);
-		frame.getContentPane().add(Label, BorderLayout.CENTER);
-
-		frame.pack();
-		frame.setVisible(true);
-
-		Jbutton b = new JButton("click");
-		b.setBounds();
-	}
-}
-*/
-//remember to write imports
-package ??
-import java fx.scene.Parent;
-//
-////
-///
-//
-//
-//
+//package ??
+import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class Card extends Parent {
-//qualitites of a card
+//qualities of a card, Suit and Rank
 	enum Suit {
 		SPADES, DIAMONDS, CLUBS, HEARTS
 	};
@@ -52,13 +23,17 @@ public class Card extends Parent {
 	public final Rank rank;
 	public final int value;
 
-//initializing card
+// card constructor takes Suit and Rank
 	public Card(Suit suit, Rank rank) {
 		this.suit = suit;
 		this.rank = rank;
 		this.value = rank.value;
 
 //display all this??
+//
+	Rectangle rect = new Rectangle (70, 100);
+	rect.set
+//
 //
 //rectangle
 //
@@ -73,23 +48,209 @@ public class Deck {
 	public Deck() {
 		refill();
 	}
-
+//refills deck with all ranks from all suits
 	public final void refill() {
 		int i = 0;
 		for (Suit suit : Suit.values()) {
-			cards[i++] = new(suit, rank);
+			for (Rank rank : Rank.values()){
+				cards[i++] = new(suit, rank);
+			}
+		}
+	}
+//pulls random card from deck and returns it
+	public Card drawCard() {
+		Card card = null;
+		while (card == null) {
+			int index = (int)(Math.random()*cards.length);
+			card = cards[index];
+			cards[index] = null;
+		}
+		return card;
+	}
+};
+
+//Any player's hand
+public class Hand {
+
+	//list from UI
+	private ObservableList<Node> cards;
+	//
+	private Simple IntegerProperty value = new SimpleIntegerProperty(0);
+
+	private int aces = 0;
+
+	//consructor for Hand
+	public Hand(ObservableList<Node> cards) {
+		this.cards = cards;
+	}
+
+	//Hand takes card from deck
+	public void takeCard(Card card) {
+		cards.add(card);
+
+		if (card.rank == Rank.ACE) {
+			aces++;
+		}
+
+		if (value.get() + card.value > 21 && aces > 0) {
+			value.set(value.get() + card.value - 10);
+			aces --;
+		}
+		else {
+			value.set(value.get() + card.value);
 		}
 	}
 
-	public Card drawCard() {
+	//reset the hand
+	public void reset() {
+		cards.clear();
+		value.set(0);
+		aces = 0;
+	}
+	
+	public SimpleIntegerProperty valueProperty() {
+		return value;
+	}
+}
 
-	};
+public class BlackjackMain extends Application {
 
+	private Deck deck = new Deck();
+	private Hand dealer, player;
+	private Text message = new Text();
 
+	private SimpleBooleanProperty playable = new SimpleBooleanProperty(false);
 
+	private HBox dealerCards = new HBox(20);
+	private HBox playerCards = new HBox(20);
 
+	private Parent createContent() {
+		dealer = new Hand(dealerCards.getChildren());
+        player = new Hand(playerCards.getChildren());
 
+        Pane root = new Pane();
+        root.setPrefSize(800, 600);
 
+        Region background = new Region();
+        background.setPrefSize(800, 600);
+        background.setStyle("-fx-background-color: rgba(0, 0, 0, 1)");
 
+        HBox rootLayout = new HBox(5);
+        rootLayout.setPadding(new Insets(5, 5, 5, 5));
+        Rectangle leftBG = new Rectangle(550, 560);
+        leftBG.setArcWidth(50);
+        leftBG.setArcHeight(50);
+        leftBG.setFill(Color.GREEN);
+        Rectangle rightBG = new Rectangle(230, 560);
+        rightBG.setArcWidth(50);
+        rightBG.setArcHeight(50);
+        rightBG.setFill(Color.ORANGE);
 
+        // LEFT
+        VBox leftVBox = new VBox(50);
+        leftVBox.setAlignment(Pos.TOP_CENTER);
 
+        Text dealerScore = new Text("Dealer: ");
+        Text playerScore = new Text("Player: ");
+
+        leftVBox.getChildren().addAll(dealerScore, dealerCards, message, playerCards, playerScore);
+
+        // RIGHT
+
+        VBox rightVBox = new VBox(20);
+        rightVBox.setAlignment(Pos.CENTER);
+
+        final TextField bet = new TextField("BET");
+        bet.setDisable(true);
+        bet.setMaxWidth(50);
+        Text money = new Text("MONEY");
+
+        Button btnPlay = new Button("PLAY");
+        Button btnHit = new Button("HIT");
+        Button btnStand = new Button("STAND");
+
+        HBox buttonsHBox = new HBox(15, btnHit, btnStand);
+        buttonsHBox.setAlignment(Pos.CENTER);
+
+        rightVBox.getChildren().addAll(bet, btnPlay, money, buttonsHBox);
+
+        // ADD BOTH STACKS TO ROOT LAYOUT
+
+        rootLayout.getChildren().addAll(new StackPane(leftBG, leftVBox), new StackPane(rightBG, rightVBox));
+        root.getChildren().addAll(background, rootLayout);
+
+        // BIND PROPERTIES
+
+        btnPlay.disableProperty().bind(playable);
+        btnHit.disableProperty().bind(playable.not());
+        btnStand.disableProperty().bind(playable.not());
+
+        playerScore.textProperty().bind(new SimpleStringProperty("Player: ").concat(player.valueProperty().asString()));
+        dealerScore.textProperty().bind(new SimpleStringProperty("Dealer: ").concat(dealer.valueProperty().asString()));
+
+        player.valueProperty().addListener((obs, old, newValue) -> {
+            if (newValue.intValue() >= 21) {
+                endGame();
+            }
+        });
+
+        dealer.valueProperty().addListener((obs, old, newValue) -> {
+            if (newValue.intValue() >= 21) {
+                endGame();
+            }
+        });
+
+        // INIT BUTTONS
+
+        btnPlay.setOnAction(event -> {
+            startNewGame();
+        });
+
+        btnHit.setOnAction(event -> {
+            player.takeCard(deck.drawCard());
+        });
+
+        btnStand.setOnAction(event -> {
+            while (dealer.valueProperty().get() < 17) {
+                dealer.takeCard(deck.drawCard());
+            }
+
+            endGame();
+        });
+
+        return root;
+    }
+
+    private void startNewGame() {
+        playable.set(true);
+        message.setText("");
+
+        deck.refill();
+
+        dealer.reset();
+        player.reset();
+
+        dealer.takeCard(deck.drawCard());
+        dealer.takeCard(deck.drawCard());
+        player.takeCard(deck.drawCard());
+        player.takeCard(deck.drawCard());
+    }
+
+    private void endGame() {
+        playable.set(false);
+
+        int dealerValue = dealer.valueProperty().get();
+        int playerValue = player.valueProperty().get();
+        String winner = "Exceptional case: d: " + dealerValue + " p: " + playerValue;
+
+        // the order of checking is important
+        if (dealerValue == 21 || playerValue > 21 || dealerValue == playerValue
+                || (dealerValue < 21 && dealerValue > playerValue)) {
+            winner = "DEALER";
+        }
+        else if (playerValue == 21 || dealerValue > 21 || playerValue > dealerValue) {
+            winner = "PLAYER";
+        }
+
+        message.setText(winner + " WON");
+    }
