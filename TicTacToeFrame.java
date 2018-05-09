@@ -11,6 +11,7 @@ public class TicTacToeFrame extends JFrame {
     //whose turn
     public char playerTurn = 'X';
     private boolean finished = false;
+    
     //will create a tictactoe grid using a two dimentional array
     private Cell[][] cells = new Cell[3][3];
     
@@ -20,18 +21,20 @@ public class TicTacToeFrame extends JFrame {
     public TicTacToeFrame(){
         //Panel to hold the cells
         JPanel panel = new JPanel(new GridLayout(3, 3, 0, 0));
-        for (int i = 0; i < 0; i++){
-            for (int j = 0; i < 3; j++){
-                    panel.add(cells[i][j] = new Cell());
-            }
-        }
+        for (int i = 0; i < 3; i++)
+            // had an i instide of j so wouldnt make the grid
+           for (int j = 0; j < 3; j++)
+               panel.add(cells[i][j] = new Cell());
+            
+        
         panel.setBorder(new LineBorder(Color.black, 10));
-        firstLabel.setBorder(new LineBorder(Color.black, 5));
+        firstLabel.setBorder(new LineBorder(Color.black, 1));
         
         add(panel, BorderLayout.CENTER);
         add(firstLabel, BorderLayout.SOUTH);
         
     }
+    
     //if all cells are holding a value finish the game
     public boolean isDone(){
         //for loops checking through the arrays if any cell is empty, continue
@@ -40,10 +43,10 @@ public class TicTacToeFrame extends JFrame {
                 if(cells[i][j].getToken() == ' '){
                     return false;
                 }
-                 else return true;
+                else return true;
             }
         }
-        return true;
+        return false;
     }
     //checks to see if three in a row & columns are the same
     public boolean isWon(char token){
@@ -70,11 +73,12 @@ public class TicTacToeFrame extends JFrame {
     
 }
 
-/*/public class Cell extends JPanel{
+
+public class Cell extends JPanel{
     //will be an empty cell
     private char token = ' ';
     public Cell(){
-        setBorder(new LineBorder(Color.black, 10));
+        setBorder(new LineBorder(Color.black, 3));
         addMouseListener(new MyMouseListener());
     }
     public char getToken(){
@@ -100,10 +104,10 @@ public class TicTacToeFrame extends JFrame {
     
     private class MyMouseListener extends MouseAdapter{
         //will let the players click on the cells to choose their position
-        @Override
+
         public void mouseClocked(MouseEvent e){
             if(finished){
-                return true;
+                return ;
             }
             if(token == ' ' && playerTurn != ' '){
                 setToken(playerTurn);
@@ -111,7 +115,7 @@ public class TicTacToeFrame extends JFrame {
             if(isWon(playerTurn)){
                 firstLabel.setText(playerTurn + " won the game!");
             }
-            else if (isFull()){
+            else if (isDone()){
                 firstLabel.setText("No more options, its a tie!");
                 playerTurn = ' ';
             }
@@ -127,7 +131,6 @@ public class TicTacToeFrame extends JFrame {
            }
                     
         }
-    }
-    /*/
-    
+      }
+   }
 }
