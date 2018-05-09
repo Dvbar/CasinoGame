@@ -5,19 +5,24 @@ import java.awt.event.*;
 
 public class Roulette {
     static JFrame frame = new JFrame("Roulette");
+    static JPanel login = new JPanel();
+    static JPanel betting = new JPanel();
 
-    static JMenuBar grayMenu = new JMenuBar();
     static JLabel title = new JLabel("Roulette");
 
-    //Input the name and starting amount of the player
-    static JLabel name = new JLabel("Name:");
+    //Input the name and starting amount of the playerA
+    static String name;
+    static int money = 0;
+    static JLabel nameLabel = new JLabel("Name:");
     static JTextField inputName = new JTextField();
-    static JLabel startingAmount = new JLabel("Money:");
+    static JLabel startingAmountLabel = new JLabel("Money:");
     static JTextField inputStartingAmount = new JTextField();
     static JButton submitNameAndMoney = new JButton("Submit");
 
     /* Information used for betting */
+    static int bet = 0;
     static JButton submitBet = new JButton("Bet");
+    static JButton finishBet = new JButton("Done");
     //Used for drop down menus
     //One main type of bet, one for subtypes
     static String[] betPossibilities = new String[] {"1-18", "19-36", "1st Twelve", "2nd Twelve", "3rd Twelve", "Basket", "Color", "Column", "Corner", "Even/Odd", "Single", "Six Line", "Split", "Street"};
@@ -40,6 +45,24 @@ public class Roulette {
     final static JComboBox<String> sixLineSubComboBox = new JComboBox<String>(sixLineSubBets);
     final static JComboBox<String> splitSubComboBox = new JComboBox<String>(splitSubBets);
     final static JComboBox<String> streetSubComboBox = new JComboBox<String>(streetSubBets);
+    final static JComboBox<String> blankSubComboBox = new JComboBox<String>();
+
+    public static void update(String mainBet) {
+        betting.remove(blankSubComboBox);
+        if (mainBet == "Basket")        betting.add(basketSubComboBox);
+        else if (mainBet == "Color")    betting.add(colorSubComboBox);
+        else if (mainBet == "Column")   betting.add(columnSubComboBox);
+        else if (mainBet == "Corner")   betting.add(cornerSubComboBox);
+        else if (mainBet == "Even/Odd") betting.add(evenOddSubComboBox);
+        else if (mainBet == "Single")   betting.add(singleSubComboBox);
+        else if (mainBet == "Six Line") betting.add(sixLineSubComboBox);
+        else if (mainBet == "Split")    betting.add(splitSubComboBox);
+        else if (mainBet == "Street")   betting.add(streetSubComboBox);
+        else                            betting.add(blankSubComboBox);
+    }
+
+    //A vector that will hold every submitted bet
+    static Vector<Integer> vecBets = new Vector<Integer>();
 
     static Random generator = new Random();
 
@@ -54,13 +77,19 @@ public class Roulette {
         frame.setSize(800,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        grayMenu.setOpaque(true);
-        grayMenu.setBackground(new Color(211,211,211));
-        grayMenu.setPreferredSize(new Dimension(800,20));
+        login.add(nameLabel);
+        login.add(inputName);
+        login.add(startingAmountLabel);
+        login.add(inputStartingAmount);
+        login.add(submitNameAndMoney);
 
-        name.setBounds(50,450,30,25);
+        nameLabel.setBounds(50,450,30,25);
         inputName.setBounds(100,450,100,25);
-        startingAmount.setBounds(50,415,30,25);
+        startingAmountLabel.setBounds(50,415,30,25);
         inputStartingAmount.setBounds(100,415,100,25);
+        frame.add(login);
+
+        frame.pack();
+        frame.setVisible(true);
     }
 }
