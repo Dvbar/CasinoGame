@@ -96,6 +96,80 @@ public class Roulette {
         //Check the main bet first for the ones w/o subtypes
         //True if the winning number is within the set
         //False if not
+        if (spinNum.equals(0))
+            if (subBet.equals("Even") || subBet.equals("0") || subBet.equals("{0,1,2}") || subBet.equals("{0,2,3}")) return true;
+        else if (spinNum.equals(1))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("1") || subBet.equals("{1,2}") || subBet.equals("{1,4}") || subBet.equals("{0,1,2}") || subBet.equals("Red") || subBet.equals("Bottom") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}")) return true;
+        else if (spinNum.equals(2))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("2") || subBet.equals("{1,2}") || subBet.equals("{2,3}") || subBet.equals("{2,5}") || subBet.equals("{0,1,2}") || subBet.equals("{0,2,3}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{2,3,5,6}")) return true;
+        else if (spinNum.equals(3))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("3") || subBet.equals("{2,3}") || subBet.equals("{3,6}") || subBet.equals("{0,2,3}") || subBet.equals("Red") || subBet.equals("Top") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{2,3,5,6}")) return true;
+        else if (spinNum.equals(4))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("4") || subBet.equals("{4,5}") || subBet.equals("{4,7}") || subBet.equals("{1,4}") || subBet.equals("Black") || subBet.equals("Bottom") || subBet.equals("{4,5,6}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{4,5,7,8}")) return true;
+        else if (spinNum.equals(5))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("5") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Red") || subBet.equals("Middle") || subBet.equals("{4,5,6}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(6))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("6") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Top") || subBet.equals("{4,5,6}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(7))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("7") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Red") || subBet.equals("Bottom") || subBet.equals("{7,8,9}") || subBet.equals("{4,5,6,7,8,9}") || subBet.equals("{7,8,9,10,11,12}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(8))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("8") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{7,8,9}") || subBet.equals("{4,5,6,7,8,9}") || subBet.equals("{7,8,9,10,11,12}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(9))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("9") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Red") || subBet.equals("Top") || subBet.equals("{7,8,9}") || subBet.equals("{4,5,6,7,8,9}") || subBet.equals("{7,8,9,10,11,12}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(10))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("10") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Bottom") || subBet.equals("{10,11,12}") || subBet.equals("{7,8,9,10,11,12}") || subBet.equals("{10,11,12,13,14,15}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(11))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("11") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{10,11,12}") || subBet.equals("{7,8,9,10,11,12}") || subBet.equals("{10,11,12,13,14,15}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(12))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("1st Twelve") || subBet.equals("12") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(13))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("2nd Twelve") || subBet.equals("13") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(14))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("2nd Twelve") || subBet.equals("14") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(15))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("2nd Twelve") || subBet.equals("15") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(16))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("2nd Twelve") || subBet.equals("16") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(17))
+            if (subBet.equals("Odd") || mainBet.equals("1-18") || mainBet.equals("2nd Twelve") || subBet.equals("17") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(18))
+            if (subBet.equals("Even") || mainBet.equals("1-18") || mainBet.equals("2nd Twelve") || subBet.equals("18") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(19))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("2nd Twelve") || subBet.equals("19") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(20))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("2nd Twelve") || subBet.equals("20") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(21))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("2nd Twelve") || subBet.equals("21") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(22))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("2nd Twelve") || subBet.equals("22") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(23))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("2nd Twelve") || subBet.equals("23") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(24))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("2nd Twelve") || subBet.equals("24") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(25))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("25") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(26))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("26") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(27))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("27") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(28))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("28") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(29))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("29") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(30))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("30") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(31))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("31") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(32))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("3rdt Twelve") || subBet.equals("32") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(33))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("33") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(34))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("34") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(35))
+            if (subBet.equals("Odd") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("35") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
+        else if (spinNum.equals(36))
+            if (subBet.equals("Even") || mainBet.equals("19-36") || mainBet.equals("3rd Twelve") || subBet.equals("36") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("{}") || subBet.equals("Black") || subBet.equals("Middle") || subBet.equals("{1,2,3}") || subBet.equals("{1,2,3,4,5,6}") || subBet.equals("{1,2,4,5}") || subBet.equals("{}")) return true;
         return false;
     }
 
