@@ -7,6 +7,7 @@ public class Roulette {
     static JFrame frame = new JFrame("Roulette");
     static JPanel login = new JPanel();
     static JPanel betting = new JPanel();
+    betting.setLayout(new GridLayout(2,4,5,0));
 
     static JLabel title = new JLabel("Roulette");
 
@@ -94,8 +95,6 @@ public class Roulette {
     private static boolean checkBet(String mainBet, String subBet, int spinNum) {
         //Check each sub-bet and determine if the winning number is in that set of numbers
         //Check the main bet first for the ones w/o subtypes
-        //True if the winning number is within the set
-        //False if not
         if (spinNum == 0)
             if (subBet.equals("Even") || subBet.equals("0") || subBet.equals("{0,1,2}") || subBet.equals("{0,2,3}")) return true;
 
@@ -242,9 +241,17 @@ public class Roulette {
     public static void lose() {
     }
 
-    public static void main(String[] args) {
+    public static void createMain() {
         frame.setSize(800,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout(0,0));
+
+        nameLabel.setBounds(150,200,300,25);
+        inputName.setBounds(150,250,300,25);
+        startingAmountLabel.setBounds(150,250,300,25);
+        inputStartingAmount.setBounds(150,300,300,25);
+        submitNameAndMoney.setBounds(175,150,50,25);
+        login.setLayout(null);
 
         login.add(nameLabel);
         login.add(inputName);
@@ -252,13 +259,18 @@ public class Roulette {
         login.add(inputStartingAmount);
         login.add(submitNameAndMoney);
 
-        nameLabel.setBounds(50,450,30,25);
-        inputName.setBounds(100,450,100,25);
-        startingAmountLabel.setBounds(50,415,30,25);
-        inputStartingAmount.setBounds(100,415,100,25);
-        frame.add(login);
-
-        frame.pack();
+        frame.add(login, BorderLayout.CENTER);
         frame.setVisible(true);
+    }
+
+    public static void createBetting(String player, int playerMoney) {
+
+    }
+
+    public static void main(String[] args) {
+        createMain();
+
+        Thread buttons = new Thread(new RouletteButtons());
+        buttons.start();
     }
 }
