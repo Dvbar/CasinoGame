@@ -25,6 +25,7 @@ public class Roulette {
     static JTextField inputBet = new JTextField();
     static JButton submitBet = new JButton("Bet");
     static JButton finishBet = new JButton("Done");
+
     //Used for drop down menus
     //One main type of bet, one for subtypes
     static String[] betPossibilities = new String[] {"1-18", "19-36", "1st Twelve", "2nd Twelve", "3rd Twelve", "Basket", "Color", "Column", "Corner", "Even/Odd", "Single", "Six Line", "Split", "Street"};
@@ -52,6 +53,7 @@ public class Roulette {
     static JComboBox<String> tempSubComboBox = new JComboBox<String>();
     static boolean replaced = false; //Checks to see if we have updated the SubComboBoxes before
 
+    //Updates the ComboBoxes on the betting JPanel
     public static void update(String mainBet) {
         if (!replaced) {
             betting.remove(blankSubComboBox);
@@ -77,13 +79,56 @@ public class Roulette {
     static Vector<String> vecBetTypes = new Vector<String>();
     static Vector<String> vecSubBetTypes = new Vector<String>();
 
-    static Random generator = new Random();
-
-    private static int spin() {
-        return generator.nextInt(37);
+    private static int ratio(String betType) {
+        int odds = 0;
+        if (betType.equals("1-18") || betType.equals("19-36") || betType.equals("Color") || betType.equals("Even/Odd")) odds = 1;
+        else if (betType.equals("1st Twelve") || betType.equals("2nd Twelve") || betType.equals("3rd Twelve") || betType.equals("Column")) odds = 2;
+        else if (betType.equals("Six Line")) odds = 5;
+        else if (betType.equals("Corner")) odds = 8;
+        else if (betType.equals("Basket") || betType.equals("Street")) odds = 11;
+        else if (betType.equals("Split")) odds = 17;
+        else odds = 35;
+        return odds;
     }
 
-    private static void payout() {
+    private static boolean checkBet(String mainBet, String subBet, int spinNum) {
+        //Check each sub-bet and determine if the winning number is in that set of numbers
+        //Check the main bet first for the ones w/o subtypes
+        //True if the winning number is within the set
+        //False if not
+        return false;
+    }
+
+    //Used or initialized in the function: payout()
+    static Random generator = new Random();
+    static int payoutRatio = 0;
+    static boolean winBet = false;
+
+    public static String payout() {
+        int netWinnings = 0;
+        int spinNum = generator.nextInt(37);
+        int vecSize = vecBets.size();
+        for (int i = 0; i < vecSize; i++) {
+            int curBet = vecBets.lastElement();
+            payoutRatio = ratio(vecBetTypes.lastElement());
+            winBet = checkBet(vecBetTypes.lastElement(), vecSubBetTypes.lastElement(), spinNum);
+            if (winBet) netWinnings += payoutRatio * curBet;
+            else netWinnings -= curBet;
+            vecBets.remove(vecBets.size()-1);
+            vecBetTypes.remove(vecBetTypes.size()-1);
+            vecSubBetTypes.remove(vecSubBetTypes.size()-1);
+        }
+        money += netWinnings;
+        String returnVal = "The winning number was: " + spinNum + ".\n";
+        if (netWinnings < 0) returnVal += "You lost: " + -1*netWinnings + " dollars.";
+        else if (netWinnings > 0) returnVal += "You won: " + netWinnings + " dollars.";
+        else returnVal += "You broke even.";
+        return returnVal;
+    }
+
+    static JLabel printSpin = new JLabel(payout());
+
+    public static void lose() {
     }
 
     public static void main(String[] args) {
