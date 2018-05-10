@@ -10,7 +10,7 @@ class RouletteButtons extends Roulette implements Runnable {
                 name = inputName.getText();
                 money = Integer.parseInt(inputStartingAmount.getText());
                 frame.remove(login);
-                frame.add(betting);
+                createBetting(name, money);
                 frame.repaint();
             }
         });
