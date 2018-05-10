@@ -32,12 +32,23 @@ class RouletteButtons extends Roulette implements Runnable {
                 vecBets.add(bet);
                 vecBetTypes.add(betComboBox.getSelectedItem().toString());
                 vecSubBetTypes.add(tempSubComboBox.getSelectedItem().toString());
+                update("All");
+                betComboBox.setSelectedIndex(-1);
+                replaced = false;
+                frame.repaint();
             }
         });
 
         finishBet.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //Finish betting and update the JFrame
+                payout();
+                betting.add(printSpin);
+                update("All");
+                betComboBox.setSelectedIndex(-1);
+                replaced = false;
+                frame.repaint();
+                if (money <= 0) lose();
             }
         });
     }
