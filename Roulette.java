@@ -7,9 +7,7 @@ public class Roulette {
     static JFrame frame = new JFrame("Roulette");
     static JPanel login = new JPanel();
     static JPanel betting = new JPanel();
-    betting.setLayout(new GridLayout(2,4,5,0));
-
-    static JLabel title = new JLabel("Roulette");
+    static JPanel gameOver = new JPanel();
 
     //Input the name and starting amount of the playerA
     static String name;
@@ -21,11 +19,17 @@ public class Roulette {
     static JButton submitNameAndMoney = new JButton("Submit");
 
     /* Information used for betting */
-    static int bet = 0;
+    static Integer bet = 0;
     static JLabel betLabel = new JLabel("Bet");
     static JTextField inputBet = new JTextField();
     static JButton submitBet = new JButton("Bet");
     static JButton finishBet = new JButton("Done");
+    static JLabel printSpin = new JLabel();
+    static JPanel mainBetPanel = new JPanel();
+    static JPanel subBetPanel = new JPanel();
+    static JPanel insertBetPanel = new JPanel();
+    static JPanel submitBetPanel = new JPanel();
+    static JPanel finishBetPanel = new JPanel();
 
     //Used for drop down menus
     //One main type of bet, one for subtypes
@@ -57,10 +61,10 @@ public class Roulette {
     //Updates the ComboBoxes on the betting JPanel
     public static void update(String mainBet) {
         if (!replaced) {
-            betting.remove(blankSubComboBox);
+            subBetPanel.remove(blankSubComboBox);
             replaced = true;
         }
-        else betting.remove(tempSubComboBox);
+        else subBetPanel.remove(tempSubComboBox);
 
         if (mainBet == "Basket")        tempSubComboBox = basketSubComboBox;
         else if (mainBet == "Color")    tempSubComboBox = colorSubComboBox;
@@ -72,7 +76,9 @@ public class Roulette {
         else if (mainBet == "Split")    tempSubComboBox = splitSubComboBox;
         else if (mainBet == "Street")   tempSubComboBox = streetSubComboBox;
         else                            tempSubComboBox = blankSubComboBox;
-        betting.add(tempSubComboBox);
+        subBetPanel.add(tempSubComboBox);
+        subBetPanel.revalidate();
+        subBetPanel.repaint();
     }
 
     //A vector that will hold every submitted bet
@@ -212,9 +218,9 @@ public class Roulette {
     //Used or initialized in the function: payout()
     static Random generator = new Random();
     static int payoutRatio = 0;
-    static boolean winBet = false;
 
     public static String payout() {
+        boolean winBet = false;
         int netWinnings = 0;
         int spinNum = generator.nextInt(37);
         int vecSize = vecBets.size();
@@ -233,24 +239,20 @@ public class Roulette {
         if (netWinnings < 0) returnVal += "You lost: " + -1*netWinnings + " dollars.";
         else if (netWinnings > 0) returnVal += "You won: " + netWinnings + " dollars.";
         else returnVal += "You broke even.";
+        returnVal += "You have " + money + " dollars remaining.";
         return returnVal;
     }
 
-    static JLabel printSpin = new JLabel(payout());
-
-    public static void lose() {
-    }
-
     public static void createMain() {
-        frame.setSize(800,600);
+        frame.setSize(1000,250);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(0,0));
 
-        nameLabel.setBounds(150,200,300,25);
-        inputName.setBounds(150,250,300,25);
-        startingAmountLabel.setBounds(150,250,300,25);
-        inputStartingAmount.setBounds(150,300,300,25);
-        submitNameAndMoney.setBounds(175,150,50,25);
+        nameLabel.setBounds(250,50,50,25);
+        inputName.setBounds(300,50,100,25);
+        startingAmountLabel.setBounds(250,100,50,25);
+        inputStartingAmount.setBounds(300,100,100,25);
+        submitNameAndMoney.setBounds(250,150,100,50);
         login.setLayout(null);
 
         login.add(nameLabel);
@@ -264,7 +266,28 @@ public class Roulette {
     }
 
     public static void createBetting(String player, int playerMoney) {
+        betting.setLayout(new GridLayout(2,4,10,0));
 
+        inputBet.setBounds(300,50,100,25);
+        mainBetPanel.add(betComboBox);
+        subBetPanel.add(blankSubComboBox);
+        insertBetPanel.add(inputBet);
+        submitBetPanel.add(submitBet);
+        finishBetPanel.add(finishBet);
+        betting.add(mainBetPanel);
+        betting.add(subBetPanel);
+        betting.add(inputBet);
+        betting.add(submitBet);
+        betting.add(finishBet);
+
+        frame.add(betting, BorderLayout.CENTER);
+    }
+
+    public static void lose() {
+        frame.remove(betting);
+        JLabel loss = new JLabel("You are all out of money and have lost. Better luck next time.");
+        gameOver.add(loss);
+        frame.add(gameOver, BorderLayout.CENTER);
     }
 
     public static void main(String[] args) {
