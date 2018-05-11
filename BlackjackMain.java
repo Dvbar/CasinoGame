@@ -29,6 +29,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/*
 public class Card extends Parent {
 //qualities of a card, Suit and Rank
 	enum Suit {
@@ -148,6 +149,7 @@ public class Hand {
 	}
 }
 
+*/
 public class BlackjackMain extends Application {
 
 	private Deck deck = new Deck();
@@ -181,7 +183,7 @@ public class BlackjackMain extends Application {
         rightBG.setArcHeight(50);
         rightBG.setFill(Color.ORANGE);
 
-        // LEFT
+        // LEFT box text
         VBox leftVBox = new VBox(50);
         leftVBox.setAlignment(Pos.TOP_CENTER);
 
@@ -190,7 +192,8 @@ public class BlackjackMain extends Application {
 
         leftVBox.getChildren().addAll(dealerScore, dealerCards, message, playerCards, playerScore);
 
-        // RIGHT
+        // RIGHT box text
+		//
 
         VBox rightVBox = new VBox(20);
         rightVBox.setAlignment(Pos.CENTER);
@@ -276,9 +279,9 @@ public class BlackjackMain extends Application {
 
         int dealerValue = dealer.valueProperty().get();
         int playerValue = player.valueProperty().get();
-        String winner = "Exceptional case: d: " + dealerValue + " p: " + playerValue;
+       
 
-        // the order of checking is important
+        // checking hand values
         if (dealerValue == 21 || playerValue > 21 || dealerValue == playerValue
                 || (dealerValue < 21 && dealerValue > playerValue)) {
             winner = "DEALER";

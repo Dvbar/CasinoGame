@@ -28,6 +28,6 @@ public class Deck {
         }
         return card;
     }
-}
+};
 
 

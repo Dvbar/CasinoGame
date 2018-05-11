@@ -44,7 +44,6 @@ public class Hand {
     public SimpleIntegerProperty valueProperty() {
         return value;
     }
-}
-
+};
 
 

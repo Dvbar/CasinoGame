@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class Card extends Parent {
+public class Card extends parent {
 //qualities of a card, Suit and Rank
     enum Suit {
         SPADES, DIAMONDS, CLUBS, HEARTS
@@ -51,6 +51,6 @@ public class Card extends Parent {
 
         getChildren().addAll(bg, new ImageView(suit.image), view, text1, text2);
     }
-}
+};
 
 
