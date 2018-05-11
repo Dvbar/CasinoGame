@@ -104,5 +104,83 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
+	private static void readAccounts() {
+		System.out.println("Reading accounts file...");
+
+		try {
+			ObjectInputStream ais = new ObjectInputStream(new FileInputStream("conf/accounts.txt"));
+
+			logins = (String[][]) ais.readObject();
+			ais.close();
+
+			for(int i = 0; i < maxConnections; i++){
+			    numberOfUsers = i;
+			    logins[i][0].equals(null);
+      }
+		} catch (FileNotFoundException e) {
+			System.out.println("No accounts file found, will proceed with no known accounts.");
+			numberOfUsers = 0;
+		} catch (IOException e) {
+			System.out.println("Error reading accounts file, erasing old file.");
+			e.printStackTrace();
+			accountsFile.delete();
+			numberOfUsers = 0;
+		} catch (ClassNotFoundException e) {
+		    e.printStackTrace();
+		    numberOfUsers = 0;
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            System.out.println("Accounts file read successfully.");
+            System.out.println("There are " + numberOfUsers + " accounts detected.");
+        }
+
+	}
+	private static void readKeys(){
+		System.out.println("Reading public keys...");
+
+	    try {
+            ObjectInputStream kis = new ObjectInputStream(new FileInputStream(keysFile));
+
+            publicKeys = (PublicKey[]) kis.readObject();
+            kis.close();
+        } catch(IOException | ClassNotFoundException e) {
+	    	System.out.println("ERROR: Failed to read public keys. Wiping accounts file to compensate.");
+	    	/*
+	    	Deletes accounts file. If a user tries to message another user who does
+	    	not have a registered public key with the server, then the AES handshake will fail.
+	    	 */
+	    	accountsFile.delete();
+
+	        return;
+        }
+        System.out.println("Public keys read successfully.");
+	}
+
+	private static void newConnections() {
+		Socket clientSocket;
+
+		//Coninuously checks for new connections.
+		while(true) {
+			try {
+				clientSocket = serverSocket.accept();
+
+				//Checks if server has enough room for new connection.
+				if (onlineNumber == maxConnections) {
+					System.out.println("Server full, a new user could not join.");
+					continue;
+				}
+
+				onlineNumber++;
+
+
+				//Opens new thread for connection.
+				Thread connections = new Thread(new Connections(clientSocket));
+				connections.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+}
 
 
