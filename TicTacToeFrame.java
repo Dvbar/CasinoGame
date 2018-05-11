@@ -6,10 +6,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
-//JFrame ?
+//JFrame
+//main program that will produce the interface and house the game
 public class TicTacToeFrame extends JFrame {
     //whose turn
     public char playerTurn = 'X';
+    //if game is done or not
     private boolean finished = false;
     
     //will create a tictactoe grid using a two dimentional array
@@ -27,8 +29,8 @@ public class TicTacToeFrame extends JFrame {
                panel.add(cells[i][j] = new Cell());
             
         
-        panel.setBorder(new LineBorder(Color.black, 10));
-        firstLabel.setBorder(new LineBorder(Color.black, 1));
+        panel.setBorder(new LineBorder(Color.black, 5));
+        firstLabel.setBorder(new LineBorder(Color.black, 4));
         
         add(panel, BorderLayout.CENTER);
         add(firstLabel, BorderLayout.SOUTH);
@@ -38,15 +40,15 @@ public class TicTacToeFrame extends JFrame {
     //if all cells are holding a value finish the game
     public boolean isDone(){
         //for loops checking through the arrays if any cell is empty, continue
-        for (int i = 0; i < 0; i++){
-            for (int j = 0; i < 3; j++){
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
                 if(cells[i][j].getToken() == ' '){
                     return false;
                 }
-                else return true;
             }
         }
-        return false;
+        return true;
+ 
     }
     //checks to see if three in a row & columns are the same
     public boolean isWon(char token){
@@ -75,15 +77,16 @@ public class TicTacToeFrame extends JFrame {
 
 
 public class Cell extends JPanel{
-    //will be an empty cell
+    //will be an empty cell that will later be used to mark with X or O
     private char token = ' ';
     public Cell(){
-        setBorder(new LineBorder(Color.black, 3));
-        addMouseListener(new MyMouseListener());
+        setBorder(new LineBorder(Color.black, 1));
+        addMouseListener(new MouseListener());
     }
     public char getToken(){
         return token;
     }
+    
     public void setToken(char c){
         //set token X or O
         token = c;
@@ -92,34 +95,40 @@ public class Cell extends JPanel{
     }
     @Override
     protected void paintComponent(Graphics g){
+        //Allows you to draw lines, shapes depending
         super.paintComponent(g);
         if(token == 'X'){
-            g.drawLine(10, 10, getWidth(), getHeight());
-            g.drawLine(getWidth() - 10, 10, 10, getHeight() -10);
+            g.drawLine(10, 10, getWidth() - 10, getHeight() - 10);
+            g.drawLine(getWidth() - 10, 10, 10, getHeight() - 10);
         }
         else if(token == 'O'){
             g.drawOval(10, 10, getWidth() - 20, getHeight() - 20);
         }
     }
-    
-    private class MyMouseListener extends MouseAdapter{
-        //will let the players click on the cells to choose their position
-
-        public void mouseClocked(MouseEvent e){
-            if(finished){
-                return ;
-            }
-            if(token == ' ' && playerTurn != ' '){
+   //will let the players click on the cells to choose their position
+    private class MouseListener extends MouseAdapter{
+           @Override
+           public void mouseClicked(MouseEvent e)
+           {
+               if(finished){
+                return;
+                }
+               // if the cell is empty and the game is not over
+               if(token == ' ' && playerTurn != ' '){
                 setToken(playerTurn);
-            }
-            if(isWon(playerTurn)){
-                firstLabel.setText(playerTurn + " won the game!");
-            }
-            else if (isDone()){
+                }
+               // Check game status
+               if (isWon(playerTurn)){
+                   firstLabel.setText(playerTurn + "won the game!");
+                   playerTurn = ' ';
+                   finished = true;
+               }
+               else if (isDone()){
                 firstLabel.setText("No more options, its a tie!");
                 playerTurn = ' ';
-            }
-            else {
+                finished = true;
+                }
+               else{
                 if(playerTurn == 'X'){
                     playerTurn = 'O';
                     firstLabel.setText(playerTurn + "'s turn");
@@ -128,9 +137,9 @@ public class Cell extends JPanel{
                   playerTurn = 'X';
                   firstLabel.setText(playerTurn + "'s turn");
                 } 
+              }
            }
-                    
-        }
-      }
+       }
    }
 }
+
