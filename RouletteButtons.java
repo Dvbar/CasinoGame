@@ -10,7 +10,10 @@ class RouletteButtons extends Roulette implements Runnable {
                 name = inputName.getText();
                 money = Integer.parseInt(inputStartingAmount.getText());
                 frame.remove(login);
-                createBetting(name, money);
+                betting.setLayout(new GridLayout(2,4,5,0));
+
+                createBetting(name,money);
+                frame.revalidate();
                 frame.repaint();
             }
         });
@@ -20,6 +23,10 @@ class RouletteButtons extends Roulette implements Runnable {
                 if (betComboBox.getSelectedIndex() == -1)
                     return;
                 update(betComboBox.getSelectedItem().toString());
+                betting.revalidate();
+                betting.repaint();
+                frame.revalidate();
+                frame.repaint();
             }
         });
 
@@ -35,6 +42,9 @@ class RouletteButtons extends Roulette implements Runnable {
                 update("All");
                 betComboBox.setSelectedIndex(-1);
                 replaced = false;
+                betting.revalidate();
+                betting.repaint();
+                frame.revalidate();
                 frame.repaint();
             }
         });
@@ -42,11 +52,15 @@ class RouletteButtons extends Roulette implements Runnable {
         finishBet.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //Finish betting and update the JFrame
-                payout();
+                String s = payout();
+                printSpin.setText(s);
                 betting.add(printSpin);
                 update("All");
                 betComboBox.setSelectedIndex(-1);
                 replaced = false;
+                betting.revalidate();
+                betting.repaint();
+                frame.revalidate();
                 frame.repaint();
                 if (money <= 0) lose();
             }
