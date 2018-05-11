@@ -162,7 +162,124 @@ public class BlackjackMain {
     public static void main(String[] args) {
         launch(args);
     }
+	public class Deck {
+    private Card[] cards = new Card[52];
+
+    public Deck() {
+        refill();
+    }
+//refills deck with all ranks from all suits
+    public final void refill() {
+        int i = 0;
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()){
+                cards[i++] = new Card(suit, rank);
+            }
+        }
+    }
+//pulls random card from deck and returns it
+    public Card drawCard() {
+        Card card = null;
+        while (card == null) {
+            int index = (int)(Math.random()*cards.length);
+            card = cards[index];
+            cards[index] = null;
+        }
+        return card;
+    }
+	}public class Hand {
+
+    //list from UI
+    private ObservableList<Node> cards;
+    //
+    private SimpleIntegerProperty value = new SimpleIntegerProperty(0);
+
+    private int aces = 0;
+
+    //consructor for Hand
+    public Hand(ObservableList<Node> cards) {
+        this.cards = cards;
+    }
+
+    //Hand takes card from deck
+    public void takeCard(Card card) {
+        cards.add(card);
+
+        if (card.rank == Rank.ACE) {
+            aces++;
+        }
+
+        if (value.get() + card.value > 21 && aces > 0) {
+            value.set(value.get() + card.value - 10);
+            aces --;
+        }
+        else {
+            value.set(value.get() + card.value);
+        }
+    }
+
+    //reset the hand
+    public void reset() {
+        cards.clear();
+        value.set(0);
+        aces = 0;
+    }
+
+    public SimpleIntegerProperty valueProperty() {
+        return value;
+    }
+	}
+	public static class Card extends parent {
+//qualities of a card, Suit and Rank
+    enum Suit {
+        SPADES, DIAMONDS, CLUBS, HEARTS
+    };
+    enum Rank {
+        TWO(1), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10), ACE(11);
+        final int value;
+        private Rank (int value) {
+            this.value = value;
+        }
+    };
+
+    public final Suit suit;
+    public final Rank rank;
+    public final int value;
+
+// card constructor takes Suit and Rank
+    public Card(Suit suit, Rank rank) {
+        this.suit = suit;
+        this.rank = rank;
+        this.value = rank.value;
+
+//display
+    Rectangle rect = new Rectangle (70, 100);
+    rect.setArcWidth(20);
+    rect.setArcHeight(20);
+    rect.setFill(Color.WHITE);
+
+    Text text1 = new Text(rank.displayName());
+        text1.setFont(Font.font(18));
+        text1.setX(CARD_WIDTH - text1.getLayoutBounds().getWidth() - 10);
+        text1.setY(text1.getLayoutBounds().getHeight());
+
+        Text text2 = new Text(text1.getText());
+        text2.setFont(Font.font(18));
+        text2.setX(10);
+        text2.setY(CARD_HEIGHT - 10);
+
+        ImageView view = new ImageView(suit.image);
+        view.setRotate(180);
+        view.setX(CARD_WIDTH - 32);
+        view.setY(CARD_HEIGHT - 32);
+
+        getChildren().addAll(bg, new ImageView(suit.image), view, text1, text2);
+    }
+}
+
+	
 }
 //public static void main(String[] args) {
 //	launch(args);
 //}
+
